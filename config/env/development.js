@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/sms-dev',
+	db: 'mongodb://localhost/geventos-dev',
 	app: {
 		title: 'GEVENTOS - Development Environment'
 	},

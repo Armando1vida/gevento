@@ -57,23 +57,33 @@ exports.update = function(req, res) {
  */
 exports.delete = function(req, res) {
 	var evento = req.evento ;
-
-	evento.remove(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(evento);
-		}
-	});
+    evento.state=['INACTIVO'];
+    evento.save(function(err) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            res.jsonp(evento);
+        }
+    });
+//
+//	evento.remove(function(err) {
+//		if (err) {
+//			return res.status(400).send({
+//				message: errorHandler.getErrorMessage(err)
+//			});
+//		} else {
+//			res.jsonp(evento);
+//		}
+//	});
 };
 
 /**
  * List of Eventos
  */
 exports.list = function(req, res) { 
-	Evento.find().sort('-created').populate('user', 'displayName').exec(function(err, eventos) {
+	Evento.find().where('state').in(['ACTIVO']).sort('-created').populate('user', 'displayName').exec(function(err, eventos) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)

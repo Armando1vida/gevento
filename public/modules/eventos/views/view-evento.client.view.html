@@ -1,6 +1,7 @@
 <section data-ng-controller="EventosController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1 data-ng-bind="evento.name"></h1>
+        <h3 data-ng-bind="evento.objectives"></h3>
 	</div>
 	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == evento.user._id))">
 		<a class="btn btn-primary" href="/#!/eventos/{{evento._id}}/edit">
