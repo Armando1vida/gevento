@@ -3,7 +3,7 @@
 module.exports = {
 	db: 'mongodb://localhost/sms-dev',
 	app: {
-		title: 'SMS - Development Environment'
+		title: 'GEVENTOS - Development Environment'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || 'APP_ID',
