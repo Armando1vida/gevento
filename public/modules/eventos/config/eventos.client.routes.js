@@ -7,7 +7,7 @@ angular.module('eventos').config(['$stateProvider',
 		$stateProvider.
 		state('listEventos', {
 			url: '/eventos',
-			templateUrl: 'modules/eventos/views/list-eventos.client.view.html'
+			templateUrl: 'modules/eventos/views/list-eventos.client.view1.html'
 		}).
 		state('createEvento', {
 			url: '/eventos/create',

@@ -1,15 +1,16 @@
 <section data-ng-controller="EventosController" data-ng-init="findOne()">
     <div class="page-header">
-        <h1>Edit Evento</h1>
+        <h1>Actualizar Evento</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
+                    <label class="control-label" for="name">Nombre</label>
 
                     <div class="controls">
-                        <input type="text" data-ng-model="evento.name" id="name" class="form-control" placeholder="Name"
+                        <input type="text" data-ng-model="evento.name" id="name" class="form-control"
+                               placeholder="Nombre"
                                required>
                     </div>
                 </div>
@@ -18,12 +19,25 @@
 
                     <div class="controls">
                         <textarea data-ng-model="evento.objectives" id="objectives" class="form-control"
-                                  placeholder="Objectives" cols="30" rows="10"></textarea>
+                                  placeholder="Objectivos" cols="30" rows="10"></textarea>
 
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
+                    <label class="control-label" for="objectives">Aprobado</label>
+
+                    <div class="controls">
+                        <select data-ng-model="evento.approved" id="approved" class="col-md-5 form-control"
+                                placeholder="Aprobado">
+                            <option value="EN_PLANEACION">EN_PLANEACION</option>
+                            <option value="POR_APROBAR">POR_APROBAR</option>
+                            <option value="APROBADO">APROBADO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Guardar" class="btn btn-default">
                 </div>
                 <div data-ng-show="error" class="text-danger">
                     <strong data-ng-bind="error"></strong>

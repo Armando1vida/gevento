@@ -46,7 +46,8 @@ angular.module('eventos').controller('EventosController', ['$scope', '$statePara
 			var evento = $scope.evento;
 
 			evento.$update(function() {
-				$location.path('eventos/' + evento._id);
+				$location.path('eventos');
+//				$location.path('eventos/' + evento._id);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
