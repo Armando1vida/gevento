@@ -3,8 +3,18 @@
         <h1>Comites</h1>
     </div>
     <table ng-table class="table table-bordered table-striped">
+        <thead >
+        <tr>
+            <th>Nombre comité</th>
+            <th>Evento</th>
+            <th>Estado</th>
+            <th>Usuario creador</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
         <tr ng-repeat="comite in comites" data-ng-href="#!/comites/{{comite._id}}">
             <td data-title="Nombre">{{comite.name}}</td>
+            <td data-title="Evento"><span data-ng-bind="comite.evento.name"></span></td>
             <td data-title="State">{{comite.state[0]}}</td>
 
             <td data-title="User"><span data-ng-bind="comite.user.displayName"></span></td>

@@ -47,6 +47,22 @@ var EventoSchema = new Schema({
             }
         ],
         default: ['ACTIVO']
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+        required: 'Please fill Evento objectives'
+    },
+    place: {
+        type: String,
+        default: '',
+        required: 'Please fill Evento objectives',
+        trim: true
+    },
+    actividades: {
+        type: [
+            {type: String}
+        ]
     }
 
 });

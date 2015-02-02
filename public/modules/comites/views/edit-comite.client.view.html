@@ -1,36 +1,41 @@
 <section data-ng-controller="ComitesController" data-ng-init="findOne()">
     <div class="page-header">
-        <h1>Edit Comite</h1>
+        <h1>Actualizar Comité</h1>
     </div>
     <div class="col-md-12">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
-            <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Nombre</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="comite.name" id="name" class="form-control" placeholder="Nombre" required>
+                    <label class="col-sm-2 control-label" for="name">Name</label>
+
+                    <div class="col-sm-10">
+                        <input type="text" data-ng-model="comite.name" id="name" class="form-control" placeholder="Name"
+                               required>
                     </div>
                 </div>
+
                 <div class="form-group">
-                    <label class="control-label" for="date">Fecha</label>
-                    <div class="controls">
-                        <!--{{ comite.date = comite.date | date :'dd/MM/yyyy'}}-->
-                        <input type="date" data-ng-model="comite.date" id="date" class="form-control"  placeholder="Fecha" required>
+                    <label class="col-sm-2 control-label" for="is_organizer">Es Organizador</label>
+
+                    <div class="col-sm-10">
+                        <button type="button" class=""
+                                ng-class="comite.is_organizer ? 'btn btn-primary ' : 'btn btn-danger'"
+                                id="is_organizer" data-ng-model="comite.is_organizer" btn-checkbox
+                                btn-checkbox-true="true"
+                                btn-checkbox-false="false">
+                            {{comite.is_organizer ? "SI": "NO"}}
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" value="Guardar" class="btn btn-default">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="control-label" for="is_organizer">Name</label>
-                    <div class="controls">
-                        <input type="checkbox" data-ng-model="comite.is_organizer" id="is_organizer" class="form-control" placeholder="Es Organizador" required>
-                    </div>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
         </form>
     </div>
 </section>

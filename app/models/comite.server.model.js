@@ -33,14 +33,14 @@ var ComiteSchema = new Schema({
         ],
         default: ['ACTIVO']
     },
+    evento: {
+        type: String,
+        ref: 'Evento'
+    },
     is_organizer: {
         type: Boolean,
         default: false,
         required: 'Please fill Comite is organizer'
-    },
-    date: {
-        type: Date,
-        required: 'Please fill Comite date'
     }
 });
 
