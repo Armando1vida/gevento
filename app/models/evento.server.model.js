@@ -51,12 +51,12 @@ var EventoSchema = new Schema({
     date: {
         type: Date,
         default: Date.now,
-        required: 'Please fill Evento objectives'
+        required: 'Please fill Evento Date'
     },
     place: {
         type: String,
         default: '',
-        required: 'Please fill Evento objectives',
+        required: 'Please fill Evento Place',
         trim: true
     },
     actividades: {

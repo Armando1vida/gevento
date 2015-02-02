@@ -6,22 +6,73 @@
         <form class="form-horizontal" data-ng-submit="create()" novalidate>
             <fieldset>
                 <div class="form-group">
-                    <label class="control-label" for="name">Nombre</label>
+                    <label class="col-sm-2 control-label" for="name">Nombre</label>
 
-                    <div class="controls">
+                    <div class="col-sm-6">
                         <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Nombre"
                                required>
                     </div>
                 </div>
-                <div class="form-group" >
-                    <label class="control-label" for="objectives">Objetivos</label>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="name">Fecha</label>
 
-                    <div class="controls">
-                        <textarea data-ng-model="objectives" id="objectives" class="form-control" placeholder="Objetivos" cols="30" rows="10"></textarea>
+                    <div class="col-sm-6">
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}" data-ng-model="date"
+                                   is-open="opened" min-date="minDate" max-date="'2015-06-22'"
+                                   datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                                   ng-required="true" close-text="Close"/>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                                    class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="objectives">Objetivos</label>
+
+                    <div class="col-sm-6">
+                        <textarea data-ng-model="objectives" id="objectives" class="form-control"
+                                  placeholder="Objetivos" cols="30" rows="5"></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-default">
+                    <label class="col-sm-2 control-label" for="place">Lugar</label>
+
+                    <div class="col-sm-6">
+                        <textarea data-ng-model="place" id="place" class="form-control"
+                                  placeholder="Lugar" cols="30" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="actividades">Actividades</label>
+
+                    <div class="col-sm-6">
+                        <p class="input-group">
+                            <input type="text" class="form-control" ng-model="actdata"/>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="addTodo(true)"><i
+                                    class="glyphicon glyphicon-plus "></i></button>
+                          </span>
+                        </p>
+                        <table id="actividades" class="table table-striped table-bordered">
+                            <tbody>
+                            <tr ng-repeat="act in actividades">
+                                <td>{{act}}</td>
+                                <td><a class="btn btn-primary" data-ng-click="removeTodo(act,true);">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" class="btn btn-default">
+                    </div>
                 </div>
                 <div data-ng-show="error" class="text-danger">
                     <strong data-ng-bind="error"></strong>

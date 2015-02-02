@@ -92,6 +92,7 @@ angular.module('comites').filter('propsFilter', function() {
 
         // Find existing Comite
         $scope.findOne = function () {
+            $scope.findEvents();
             $scope.comite = Comites.get({
                 comiteId: $stateParams.comiteId
             });

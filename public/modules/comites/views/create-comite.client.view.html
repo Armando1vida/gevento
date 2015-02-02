@@ -23,7 +23,7 @@
 
                 <div class="col-sm-6">
                     <ui-select ng-disabled=false ng-model="event.selected" style="width: 300px;">
-                        <ui-select-match placeholder="Select or search a country in the list...">
+                        <ui-select-match placeholder="Seleccione un evento">
                             {{$select.selected.name}}
                         </ui-select-match>
                         <ui-select-choices repeat="event in eventos | filter: $select.search">
