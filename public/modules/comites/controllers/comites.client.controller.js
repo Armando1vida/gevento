@@ -1,12 +1,12 @@
 'use strict';
 
 // Comites controller
-angular.module('comites').filter('propsFilter', function() {
-    return function(items, props) {
+angular.module('comites').filter('propsFilter', function () {
+    return function (items, props) {
         var out = [];
 
         if (angular.isArray(items)) {
-            items.forEach(function(item) {
+            items.forEach(function (item) {
                 var itemMatches = false;
 
                 var keys = Object.keys(props);
@@ -30,8 +30,32 @@ angular.module('comites').filter('propsFilter', function() {
 
         return out;
     };
-}).controller('ComitesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Comites', 'Eventos',
-    function ($scope, $stateParams, $location, Authentication, Comites, Eventos) {
+}).controller('ComitesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Comites', 'Eventos', '$modal', '$log',
+    function ($scope, $stateParams, $location, Authentication, Comites, Eventos, $modal, $log) {
+
+        $scope.items = ['item1', 'item2', 'item3'];
+
+        $scope.open = function (size) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'myModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return $scope.items;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                console.log('ec');
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
         $scope.authentication = Authentication;
         $scope.event = {};
         // Create new Comite
@@ -39,7 +63,7 @@ angular.module('comites').filter('propsFilter', function() {
             var comite = new Comites({
                 name: this.name,
                 is_organizer: this.is_organizer,
-                evento:$scope.event.selected._id
+                evento: $scope.event.selected._id
             });
             // Redirect after save
             comite.$save(function (response) {
@@ -98,4 +122,18 @@ angular.module('comites').filter('propsFilter', function() {
             });
         };
     }
-]);
+]).controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    };
+});

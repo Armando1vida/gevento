@@ -17,14 +17,15 @@ angular.module('eventos').controller('EventosController', ['$scope', '$statePara
             $scope.actdata = '';
         };
         $scope.removeTodo = function (ac, y) {
+            var oldTodos;
             if (y) {
-                var oldTodos = $scope.actividades;
+                 oldTodos = $scope.actividades;
                 $scope.actividades = [];
                 angular.forEach(oldTodos, function (todo) {
                     if (todo !== ac) $scope.actividades.push(todo);
                 });
             } else {
-                var oldTodos = $scope.evento.actividades;
+                 oldTodos = $scope.evento.actividades;
                 $scope.evento.actividades = [];
                 angular.forEach(oldTodos, function (todo) {
                     if (todo !== ac) $scope.evento.actividades.push(todo);

@@ -3,14 +3,23 @@
         <h1>Eventos</h1>
     </div>
     <table ng-table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Objetivos</th>
+            <th>Estado</th>
+            <!--<th>Usuario Creador</th>-->
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
         <tr ng-repeat="evento in eventos" data-ng-href="#!/eventos/{{evento._id}}">
-            <td data-title="Nombre" >{{evento.name}}</td>
+            <td data-title="Nombre">{{evento.name}}</td>
             <td data-title="Objectives">{{evento.objectives}}</td>
             <td data-title="Approved">{{evento.approved[0]}}</td>
-            <td data-title="State">{{evento.state[0]}}</td>
 
-            <td data-title="User"><span data-ng-bind="evento.user.displayName"></span></td>
-            <td >
+            <!--<td data-title="User"><span data-ng-bind="evento.user.displayName"></span></td>-->
+            <td>
                 <a class="btn btn-primary" data-ng-href="#!/eventos/{{evento._id}}">
                     <i class="glyphicon glyphicon-eye-open"></i>
                 </a>
@@ -22,8 +31,9 @@
                 </a>
             </td>
         </tr>
+        </tbody>
     </table>
     <div class="alert alert-warning text-center" data-ng-hide="!eventos.$resolved || eventos.length">
-    	No Eventos yet, why don't you <a href="/#!/eventos/create">create one</a>?
+        No Eventos yet, why don't you <a href="/#!/eventos/create">create one</a>?
     </div>
 </section>

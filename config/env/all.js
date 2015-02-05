@@ -14,7 +14,8 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+//				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				'public/lib/bootstrap/dist/css/doc.min.css',
 				'public/lib/ng-table/dist/ng-table.min.css',
 				'public/lib/angular-ui-select/dist/select.min.css'
 			],
