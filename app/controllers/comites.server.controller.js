@@ -14,9 +14,15 @@ var mongoose = require('mongoose'),
  */
 exports.create = function (req, res) {
     var comite = new Comite(req.body);
-    comite.user = req.user;//
+    var evento = new Evento(req.body.evento);
+    comite.evento=evento._id;
+//    comite.evento= _.extend(comite, req.body);
+//    console.log(req.body);
+//    comite.user = req.user;//
     console.log(comite);
+    console.log(evento);
     comite.save(function (err) {
+        console.log(err);
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)

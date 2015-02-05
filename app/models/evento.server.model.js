@@ -20,10 +20,10 @@ var EventoSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    user: {
-        type: Schema.ObjectId,
-        ref: 'User'
-    },
+//    user: {
+//        type: Schema.ObjectId,
+//        ref: 'User'
+//    },
     objectives: {
         type: String,
         default: '',

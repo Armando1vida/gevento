@@ -20,10 +20,10 @@ var ComiteSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	},
+//	user: {
+//		type: Schema.ObjectId,
+//		ref: 'User'
+//	},
     state: {
         type: [
             {
@@ -34,14 +34,15 @@ var ComiteSchema = new Schema({
         default: ['ACTIVO']
     },
     evento: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: 'Evento'
     },
     is_organizer: {
         type: Boolean,
         default: false,
         required: 'Please fill Comite is organizer'
-    }
+    },
+    users : [{ type: Schema.Types.ObjectId, ref: 'User' }]
 });
 
 mongoose.model('Comite', ComiteSchema);

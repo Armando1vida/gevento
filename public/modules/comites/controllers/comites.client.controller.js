@@ -60,11 +60,14 @@ angular.module('comites').filter('propsFilter', function () {
         $scope.event = {};
         // Create new Comite
         $scope.create = function () {
+
             var comite = new Comites({
                 name: this.name,
                 is_organizer: this.is_organizer,
-                evento: $scope.event.selected._id
+                evento: $scope.event.selected
             });
+//            console.log(comite);
+//            return;
             // Redirect after save
             comite.$save(function (response) {
                 $location.path('comites/' + response._id);
