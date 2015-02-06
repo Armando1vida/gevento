@@ -4,7 +4,8 @@
             {{evento.name}}
 
         </h1>
-        <h5><span class="label label-success">{{evento.date | date:'medium'}}</span></h5>
+        <h5><span class="label label-success">{{evento.date | date:'medium'}}</span> <span class="label label-info">{{evento.approved[0]}}</span>
+        </h5>
 
         <div class="row">
             <div class="col-md-6"><h4>Se lo va a realizar en: </h4>
@@ -25,7 +26,8 @@
         <hr/>
 
 
-        <div ng-show="evento.comites.length">
+        <div ng-show="comitesevent.length">
+            <h4>Comités Encargados</h4>
             <table ng-table class="table table-bordered">
                 <thead>
                 <tr>
@@ -38,7 +40,7 @@
                 </tr>
             </table>
         </div>
-        <div ng-show="!evento.comites.length" class="well bs-dropzone" ng-click="open()"
+        <div ng-show="!comitesevent.length" class="well bs-dropzone" ng-click="open()"
              style="border:none; cursor: pointer;">
             <div class="import-header">
                 <span class="glyphicon glyphicon-tower" style="font-size: 100px;" aria-hidden="true"></span>
