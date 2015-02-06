@@ -12,6 +12,8 @@ module.exports = function(app) {
 		.post(comites.addusers);
     app.route('/comites/removeuser')
 		.put(comites.removeuser);
+    app.route('/comites/evento').get(comites.byevento);
+    app.route('/comites/eventoadded').get(comites.byeventoadd);
 
 	app.route('/comites/:comiteId')
 		.get(comites.read)

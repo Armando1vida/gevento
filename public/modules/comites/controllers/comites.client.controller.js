@@ -33,7 +33,6 @@ angular.module('comites').filter('propsFilter', function () {
 }).controller('ComitesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Comites', 'Eventos', '$modal', '$log', '$http',
     function ($scope, $stateParams, $location, Authentication, Comites, Eventos, $modal, $log, $http) {
 
-        $scope.items = ['item1', 'item2', 'item3'];
 
         $scope.open = function (size) {
 //            $scope.test();
@@ -156,7 +155,6 @@ angular.module('comites').filter('propsFilter', function () {
     $scope.comiteid = comiteid;
 
     $scope.selection = [];
-
     $scope.toggleSelection = function toggleSelection(usert) {
         var idx = $scope.selection.indexOf(usert);
         // is currently selected

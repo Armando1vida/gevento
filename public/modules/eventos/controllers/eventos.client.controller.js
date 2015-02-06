@@ -1,8 +1,10 @@
 'use strict';
 
 // Eventos controller
-angular.module('eventos').controller('EventosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Eventos',
-    function ($scope, $stateParams, $location, Authentication, Eventos) {
+angular.module('eventos').controller('EventosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Eventos', '$modal', '$log', '$http',
+    function ($scope, $stateParams, $location, Authentication, Eventos, $modal, $log, $http) {
+
+
         $scope.authentication = Authentication;
 //        $scope.evento.actividades=[];
         $scope.actividades = [];
@@ -10,22 +12,27 @@ angular.module('eventos').controller('EventosController', ['$scope', '$statePara
         $scope.actdata = '';
         $scope.addTodo = function (t) {
             if (t) {
+//                var index = $scope.actividades.indexOf($scope.actdata);
+//                $scope.actividades.splice(index, 1);
                 $scope.actividades.push($scope.actdata);
             } else {
+//                var index = $scope.evento.actividades.indexOf($scope.actdata);
+//                $scope.evento.actividades.splice(index, 1);
                 $scope.evento.actividades.push($scope.actdata);
             }
             $scope.actdata = '';
+
         };
         $scope.removeTodo = function (ac, y) {
             var oldTodos;
             if (y) {
-                 oldTodos = $scope.actividades;
+                oldTodos = $scope.actividades;
                 $scope.actividades = [];
                 angular.forEach(oldTodos, function (todo) {
                     if (todo !== ac) $scope.actividades.push(todo);
                 });
             } else {
-                 oldTodos = $scope.evento.actividades;
+                oldTodos = $scope.evento.actividades;
                 $scope.evento.actividades = [];
                 angular.forEach(oldTodos, function (todo) {
                     if (todo !== ac) $scope.evento.actividades.push(todo);
@@ -34,11 +41,14 @@ angular.module('eventos').controller('EventosController', ['$scope', '$statePara
 
         };
 
-        $scope.open = function ($event) {
+        $scope.openD = function ($event) {
             $event.preventDefault();
             $event.stopPropagation();
 
             $scope.opened = true;
+        };
+        $scope.open = function ($event) {
+            $location.path('comites/create');
         };
 
         // Create new Evento
@@ -84,8 +94,8 @@ angular.module('eventos').controller('EventosController', ['$scope', '$statePara
             var evento = $scope.evento;
 
             evento.$update(function () {
-                $location.path('eventos');
-//				$location.path('eventos/' + evento._id);
+//                $location.path('eventos');
+                $location.path('eventos/' + evento._id);
             }, function (errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
@@ -101,6 +111,21 @@ angular.module('eventos').controller('EventosController', ['$scope', '$statePara
             $scope.evento = Eventos.get({
                 eventoId: $stateParams.eventoId
             });
+//            $scope.obtcomiteevento();
+        };
+        $scope.obtcomiteevento = function () {
+            return $http.get(
+                '/comites/eventoadded',
+                {params: {eventoid: $stateParams.eventoId}}
+            ).then(function (response) {
+//                    console.log(response);
+                    $scope.comitesevent = response.data;
+                    $scope.evento.comites = response.data;
+                });
+        };
+        $scope.findView = function () {
+            $scope.findOne();
+            $scope.obtcomiteevento();
         };
     }
 ]);

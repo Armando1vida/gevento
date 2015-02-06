@@ -1,22 +1,52 @@
-<section data-ng-controller="EventosController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="evento.name"></h1>
-        <h3 data-ng-bind="evento.objectives"></h3>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == evento.user._id))">
-		<a class="btn btn-primary" href="/#!/eventos/{{evento._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="evento.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="evento.user.displayName"></span>
-		</em>
-	</small>
+<section data-ng-controller="EventosController" data-ng-init=" findView()">
+    <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
+        <h1>
+            {{evento.name}}
+
+        </h1>
+        <h5><span class="label label-success">{{evento.date | date:'medium'}}</span></h5>
+
+        <div class="row">
+            <div class="col-md-6"><h4>Se lo va a realizar en: </h4>
+
+                <p>{{evento.place}}</p>
+                <h4>Tiene como objetivo:
+
+                </h4>
+
+                <p>{{evento.objectives}}</p></div>
+            <div class="col-md-6">
+                <h4>Actividades a realizarse:</h4>
+                <ul>
+                    <li ng-repeat="ac in evento.actividades">{{ac}}</li>
+                </ul>
+            </div>
+        </div>
+        <hr/>
+
+
+        <div ng-show="evento.comites.length">
+            <table ng-table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Nombre Comité</th>
+                </tr>
+                </thead>
+                <tr ng-repeat="comit in comitesevent">
+                    <td data-title="Nombre">{{comit.name}}</td>
+
+                </tr>
+            </table>
+        </div>
+        <div ng-show="!evento.comites.length" class="well bs-dropzone" ng-click="open()"
+             style="border:none; cursor: pointer;">
+            <div class="import-header">
+                <span class="glyphicon glyphicon-tower" style="font-size: 100px;" aria-hidden="true"></span>
+            </div>
+            <p class="lead">No hay comités</p>
+        </div>
+
+
+    </div>
+
 </section>

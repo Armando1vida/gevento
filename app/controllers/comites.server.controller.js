@@ -173,3 +173,35 @@ exports.removeuser = function (req, res) {
         });
     });
 };
+/**
+ * Send User
+ */
+exports.byevento = function (req, res) {
+    Comite.find().
+        where('evento').ne(req.query.eventoid)
+        .exec(function (err, comites) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(comites);
+            }
+        });
+};
+/**
+ * Send User
+ */
+exports.byeventoadd = function (req, res) {
+    Comite.find().
+        where('evento').equals(req.query.eventoid)
+        .exec(function (err, comites) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(comites);
+            }
+        });
+};
