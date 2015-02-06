@@ -2,8 +2,10 @@
     <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
         <h1>
             {{evento.name}}
-            <button ng-class="evento.approved == 'APROBADO' ? ' disabled pull-right btn btn-default btn-success': 'pull-right btn btn-default btn-danger'"  ng-click="aprobar()">
-                <span ng-class="evento.approved == 'APROBADO' ?'glyphicon glyphicon-ok':'glyphicon glyphicon-exclamation-sign'" aria-hidden="true"></span>
+            <button ng-class="evento.approved == 'APROBADO' ? ' disabled pull-right btn btn-default btn-success': 'pull-right btn btn-default btn-danger'"
+                    ng-click="aprobar()">
+                <span ng-class="evento.approved == 'APROBADO' ?'glyphicon glyphicon-ok':'glyphicon glyphicon-exclamation-sign'"
+                      aria-hidden="true"></span>
                 Aprobar Evento
             </button>
         </h1>
@@ -22,19 +24,19 @@
             <div class="col-md-6">
                 <h4>Actividades a realizarse:</h4>
                 <ul>
-                    <li  ng-repeat="ac in evento.actividades">{{ac}}</li>
+                    <li ng-repeat="ac in evento.actividades">{{ac}}</li>
                 </ul>
             </div>
         </div>
         <hr/>
 
-
         <div ng-show="comitesevent.length">
-            <h4>Comités Encargados  <button class=" pull-right btn btn-default btn-warning" ng-click="open()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                Agregar Comité
-            </button>
-                </h4>
+            <h4>Comités Encargados
+                <button class=" pull-right btn btn-default btn-warning" ng-click="open()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    Agregar Comité
+                </button>
+            </h4>
             <br/>
 
             <table ng-table class="table table-bordered">
