@@ -20,10 +20,10 @@ var EventoSchema = new Schema({
         type: Date,
         default: Date.now
     },
-//    user: {
-//        type: Schema.ObjectId,
-//        ref: 'User'
-//    },
+    user: {
+        type: Schema.ObjectId,
+        ref: 'User'
+    },
     objectives: {
         type: String,
         default: '',
@@ -63,7 +63,9 @@ var EventoSchema = new Schema({
         type: [
             {type: String}
         ]
-    }
-
+    },
+    comites: [
+        { type: Schema.ObjectId, ref: 'Comite' }
+    ]
 });
 mongoose.model('Evento', EventoSchema);

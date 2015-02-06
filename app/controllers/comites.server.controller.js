@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
     errorHandler = require('./errors.server.controller'),
     Comite = mongoose.model('Comite'),
     Evento = mongoose.model('Evento'),
+    User = mongoose.model('User'),
     _ = require('lodash');
 
 /**
@@ -14,15 +15,8 @@ var mongoose = require('mongoose'),
  */
 exports.create = function (req, res) {
     var comite = new Comite(req.body);
-    var evento = new Evento(req.body.evento);
-    comite.evento=evento._id;
-//    comite.evento= _.extend(comite, req.body);
-//    console.log(req.body);
-//    comite.user = req.user;//
-    console.log(comite);
-    console.log(evento);
+    comite.user = req.user;
     comite.save(function (err) {
-        console.log(err);
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -112,4 +106,70 @@ exports.hasAuthorization = function (req, res, next) {
         return res.status(403).send('User is not authorized');
     }
     next();
+};
+/**
+ * Update a Comite
+ */
+exports.addusers = function (req, res) {
+    Comite.findById(req.body.comiteid).exec(function (err, comite) {
+        var userold = comite.users;
+        userold = userold.concat(req.body.users);
+        comite.users = userold;
+        comite.users = comite.users.filter(function (item, i, ar) {
+            return ar.indexOf(item) === i;
+        });
+        console.log(comite.users);
+        comite.save(function (err) {
+            User.find().
+                where('_id').in(comite.users)
+                .exec(function (erre, users) {
+                    users.forEach(function (user) {
+                        var comitesold = user.comites;
+                        comitesold = comitesold.concat([req.body.comiteid]);
+                        user.comites = comitesold;
+                        user.comites = user.comites.filter(function (item, i, ar) {
+                            return ar.indexOf(item) === i;
+                        });
+                        user.save(function (err) {
+                            if (err) return;
+                        });
+                    });
+                });
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(comite);
+            }
+        });
+    });
+
+
+};
+/**
+ * Update a Comite
+ */
+exports.removeuser = function (req, res) {
+//    console.log(req);
+    Comite.findById(req.body.params.comiteid).exec(function (err, comite) {
+        var index = comite.users.indexOf(req.body.params.userid);
+        comite.users.splice(index, 1);
+        comite.save(function (err) {
+            User.findById(req.body.params.userid).exec(function (erre, user) {
+                var index = user.comites.indexOf(req.body.params.comiteid);
+                user.comites.splice(index, 1);
+                user.save(function (err) {
+                    if (err) return;
+                });
+            });
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(comite);
+            }
+        });
+    });
 };

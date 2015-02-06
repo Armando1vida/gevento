@@ -30,29 +30,29 @@ angular.module('comites').filter('propsFilter', function () {
 
         return out;
     };
-}).controller('ComitesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Comites', 'Eventos', '$modal', '$log',
-    function ($scope, $stateParams, $location, Authentication, Comites, Eventos, $modal, $log) {
+}).controller('ComitesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Comites', 'Eventos', '$modal', '$log', '$http',
+    function ($scope, $stateParams, $location, Authentication, Comites, Eventos, $modal, $log, $http) {
 
         $scope.items = ['item1', 'item2', 'item3'];
 
         $scope.open = function (size) {
+//            $scope.test();
 
             var modalInstance = $modal.open({
                 templateUrl: 'myModalContent.html',
                 controller: 'ModalInstanceCtrl',
                 size: size,
                 resolve: {
-                    items: function () {
-                        return $scope.items;
+                    comiteid: function () {
+                        return $stateParams.comiteId;
                     }
                 }
             });
 
             modalInstance.result.then(function (selectedItem) {
-                console.log('ec');
                 $scope.selected = selectedItem;
             }, function () {
-                $log.info('Modal dismissed at: ' + new Date());
+                $scope.obtusercomite();
             });
         };
 
@@ -64,7 +64,7 @@ angular.module('comites').filter('propsFilter', function () {
             var comite = new Comites({
                 name: this.name,
                 is_organizer: this.is_organizer,
-                evento: $scope.event.selected
+                evento: $scope.event.selected._id
             });
 //            console.log(comite);
 //            return;
@@ -95,6 +95,23 @@ angular.module('comites').filter('propsFilter', function () {
                 });
             }
         };
+        // Remove existing Comite
+        $scope.removeFromComite = function (user) {
+            if (user) {
+                $http.put('/comites/removeuser/', {params: {comiteid: $stateParams.comiteId, userid: user._id}})
+                    .success(function (data) {
+                        $scope.obtusercomite();
+                    })
+                    .error(function (data) {
+                        console.log('Error: ' + data);
+                    });
+                for (var i in   $scope.userscomite) {
+                    if ($scope.userscomite  [i] === user) {
+                        $scope.userscomite.splice(i, 1);
+                    }
+                }
+            }
+        };
 
         // Update existing Comite
         $scope.update = function () {
@@ -120,22 +137,55 @@ angular.module('comites').filter('propsFilter', function () {
         // Find existing Comite
         $scope.findOne = function () {
             $scope.findEvents();
+            $scope.obtusercomite();
             $scope.comite = Comites.get({
                 comiteId: $stateParams.comiteId
             });
         };
+        $scope.obtusercomite = function () {
+            return $http.get(
+                '/users/comiteadded',
+                {params: {comiteid: $stateParams.comiteId}}
+            ).then(function (response) {
+                    $scope.userscomite = response.data;
+                    $scope.comite.users = $scope.userscomite;
+                });
+        };
     }
-]).controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+]).controller('ModalInstanceCtrl', function ($scope, $modalInstance, comiteid, $http) {
+    $scope.comiteid = comiteid;
 
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
+    $scope.selection = [];
+
+    $scope.toggleSelection = function toggleSelection(usert) {
+        var idx = $scope.selection.indexOf(usert);
+        // is currently selected
+        if (idx > -1) {
+            $scope.selection.splice(idx, 1);
+        }
+        // is newly selected
+        else {
+            $scope.selection.push(usert);
+        }
     };
-
     $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
+        $http.post('/comites/adduser', {comiteid: $scope.comiteid, users: $scope.selection})
+            .success(function (data) {
+                $modalInstance.dismiss('cancel');
+            })
+            .error(function (data) {
+                console.log('Error: ' + data);
+            });
     };
-
+// Find existing Comite
+    $scope.test = function () {
+        return $http.get(
+            '/users/comite',
+            {params: {comiteid: $scope.comiteid}}
+        ).then(function (response) {
+                $scope.usersnocomite = response.data;
+            });
+    };
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };

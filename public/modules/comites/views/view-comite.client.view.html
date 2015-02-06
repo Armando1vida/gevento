@@ -10,18 +10,26 @@
             <span data-ng-show="!comite.is_organizer" class="label label-info">No es organizador</span>
         </div>
         <hr/>
-
         <script type="text/ng-template" id="myModalContent.html">
-            <div class="modal-header">
-                <h3 class="modal-title">I'm a modal!</h3>
+            <div class="modal-header" ng-init="test()">
+                <h3 class="modal-title">Agregar Integrantes</h3>
             </div>
             <div class="modal-body">
-                <ul>
-                    <li ng-repeat="item in items">
-                        <a ng-click="selected.item = item">{{ item }}</a>
-                    </li>
-                </ul>
-                Selected: <b>{{ selected.item }}</b>
+                <table ng-table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th style="width: 10px;"></th>
+                        <th>Nombre Integrante</th>
+                    </tr>
+                    </thead>
+                    <tr ng-repeat="userf in usersnocomite">
+                        <td><input type="checkbox"
+                                   ng-checked="selection.indexOf(userf._id) > -1"
+                                   ng-click="toggleSelection(userf._id)"></td>
+                        <td data-title="Nombre">{{userf.displayName}}</td>
+
+                    </tr>
+                </table>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-primary" ng-click="ok()">OK</button>
@@ -29,13 +37,30 @@
             </div>
         </script>
 
-        <p>
+        <p ng-show="comite.users.length">
             <button type="button" ng-click="open()" class="btn btn-default btn-primary">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar Integrantes
             </button>
         </p>
+        <div ng-show="comite.users.length">
+            <table ng-table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Nombre Integrante</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tr ng-repeat="userr in userscomite">
+                    <td data-title="Nombre">{{userr.displayName}}</td>
+                    <td>    <a class="btn btn-primary" data-ng-click="removeFromComite(userr);">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a></td>
 
-        <div class="well bs-dropzone" ng-click="open()" style="border:none; cursor: pointer;">
+                </tr>
+            </table>
+        </div>
+        <div ng-show="!comite.users.length" class="well bs-dropzone" ng-click="open()"
+             style="border:none; cursor: pointer;">
             <div class="import-header">
                 <span class="glyphicon glyphicon-user" style="font-size: 100px;" aria-hidden="true"></span>
             </div>

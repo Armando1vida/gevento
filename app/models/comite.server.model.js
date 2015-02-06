@@ -4,26 +4,26 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+    Schema = mongoose.Schema;
 
 /**
  * Comite Schema
  */
 var ComiteSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Comite name',
-		trim: true
-	},
-	created: {
-		type: Date,
-		default: Date.now
-	},
-//	user: {
-//		type: Schema.ObjectId,
-//		ref: 'User'
-//	},
+    name: {
+        type: String,
+        default: '',
+        required: 'Please fill Comite name',
+        trim: true
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    user: {
+        type: Schema.ObjectId,
+        ref: 'User'
+    },
     state: {
         type: [
             {
@@ -34,7 +34,7 @@ var ComiteSchema = new Schema({
         default: ['ACTIVO']
     },
     evento: {
-        type: Schema.Types.ObjectId,
+        type: Schema.ObjectId,
         ref: 'Evento'
     },
     is_organizer: {
@@ -42,7 +42,9 @@ var ComiteSchema = new Schema({
         default: false,
         required: 'Please fill Comite is organizer'
     },
-    users : [{ type: Schema.Types.ObjectId, ref: 'User' }]
+    users: [
+        { type: Schema.ObjectId, ref: 'User' }
+    ]
 });
 
 mongoose.model('Comite', ComiteSchema);

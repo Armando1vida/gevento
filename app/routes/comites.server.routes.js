@@ -7,7 +7,11 @@ module.exports = function(app) {
 	// Comites Routes
 	app.route('/comites')
 		.get(comites.list)
-		.post(users.requiresLogin, comites.create);
+		.post(users.requiresLogin, comites.create);// Comites Routes
+	app.route('/comites/adduser')
+		.post(comites.addusers);
+    app.route('/comites/removeuser')
+		.put(comites.removeuser);
 
 	app.route('/comites/:comiteId')
 		.get(comites.read)
