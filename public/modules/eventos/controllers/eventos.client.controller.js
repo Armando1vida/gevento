@@ -3,7 +3,7 @@
 // Eventos controller
 angular.module('eventos').controller('EventosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Eventos', '$modal', '$log', '$http',
     function ($scope, $stateParams, $location, Authentication, Eventos, $modal, $log, $http) {
-
+        $scope.aprobado = false;
 
         $scope.authentication = Authentication;
 //        $scope.evento.actividades=[];
@@ -100,6 +100,21 @@ angular.module('eventos').controller('EventosController', ['$scope', '$statePara
                 $scope.error = errorResponse.data.message;
             });
         };
+        // Update existing Evento
+        $scope.aprobar = function () {
+            var evento = $scope.evento;
+            evento.approved ='APROBADO';
+
+
+            evento.$update(function () {
+//                $location.path('eventos');
+                $scope.aprobado = true;
+
+                $location.path('eventos/' + evento._id);
+            }, function (errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        };
 
         // Find a list of Eventos
         $scope.find = function () {
@@ -111,6 +126,10 @@ angular.module('eventos').controller('EventosController', ['$scope', '$statePara
             $scope.evento = Eventos.get({
                 eventoId: $stateParams.eventoId
             });
+            if ($scope.evento.approved === 'APROBADO') {
+                $scope.aprobado = true;
+            }
+
 //            $scope.obtcomiteevento();
         };
         $scope.obtcomiteevento = function () {

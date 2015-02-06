@@ -2,9 +2,12 @@
     <div class="bs-callout bs-callout-info" id="callout-type-dl-truncate">
         <h1>
             {{evento.name}}
-
+            <button ng-class="evento.approved == 'APROBADO' ? ' disabled pull-right btn btn-default btn-success': 'pull-right btn btn-default btn-danger'"  ng-click="aprobar()">
+                <span ng-class="evento.approved == 'APROBADO' ?'glyphicon glyphicon-ok':'glyphicon glyphicon-exclamation-sign'" aria-hidden="true"></span>
+                Aprobar Evento
+            </button>
         </h1>
-        <h5><span class="label label-success">{{evento.date | date:'medium'}}</span> <span class="label label-info">{{evento.approved[0]}}</span>
+        <h5><span class=" label label-success">{{evento.date | date:'medium'}}</span> <span class="label label-info">{{evento.approved[0]}}</span>
         </h5>
 
         <div class="row">
@@ -19,7 +22,7 @@
             <div class="col-md-6">
                 <h4>Actividades a realizarse:</h4>
                 <ul>
-                    <li ng-repeat="ac in evento.actividades">{{ac}}</li>
+                    <li  ng-repeat="ac in evento.actividades">{{ac}}</li>
                 </ul>
             </div>
         </div>
@@ -27,7 +30,13 @@
 
 
         <div ng-show="comitesevent.length">
-            <h4>Comités Encargados</h4>
+            <h4>Comités Encargados  <button class=" pull-right btn btn-default btn-warning" ng-click="open()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                Agregar Comité
+            </button>
+                </h4>
+            <br/>
+
             <table ng-table class="table table-bordered">
                 <thead>
                 <tr>
