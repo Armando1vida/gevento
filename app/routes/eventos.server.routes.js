@@ -8,7 +8,8 @@ module.exports = function (app) {
     app.route('/eventos')
         .get(eventos.list)
         .post(users.requiresLogin, eventos.create);	// Eventos Routes
-
+//    app.route('/eventos/aprobados')
+//        .get(eventos.list);
     app.route('/eventos/:eventoId')
         .get(eventos.read)
         .put(users.requiresLogin, eventos.hasAuthorization, eventos.update)

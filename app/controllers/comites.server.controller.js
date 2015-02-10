@@ -102,9 +102,9 @@ exports.comiteByID = function (req, res, next, id) {
  * Comite authorization middleware
  */
 exports.hasAuthorization = function (req, res, next) {
-    if (req.comite.user.id !== req.user.id) {
-        return res.status(403).send('User is not authorized');
-    }
+//    if (req.comite.user.id !== req.user.id) {
+//        return res.status(403).send('User is not authorized');
+//    }
     next();
 };
 /**

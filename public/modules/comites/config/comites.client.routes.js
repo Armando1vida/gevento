@@ -20,6 +20,7 @@ angular.module('comites').config(['$stateProvider',
 		state('editComite', {
 			url: '/comites/:comiteId/edit',
 			templateUrl: 'modules/comites/views/edit-comite.client.view.html'
-		});
+		})
+        ;
 	}
 ]);

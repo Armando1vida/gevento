@@ -46,8 +46,11 @@
                 </tr>
                 </thead>
                 <tr ng-repeat="comit in comitesevent">
-                    <td data-title="Nombre">{{comit.name}}</td>
-
+                    <td data-title="Nombre" >
+                        <a data-ng-href="#!/comites/{{comit._id}}" >
+                            {{comit.name}}
+                        </a>
+                    </td>
                 </tr>
             </table>
         </div>
